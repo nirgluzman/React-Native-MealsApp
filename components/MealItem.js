@@ -1,22 +1,33 @@
 import { StyleSheet, Image, Pressable, Text, View, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-function MealItem({ title, imageUrl, duration, complexity, affordability, onPress }) {
+import MealDetails from '../components/MealDetails';
+
+function MealItem({ id, title, imageUrl, duration, complexity, affordability }) {
+  // useNavigation hook to give access to navigation object.
+  // It's useful when you cannot pass the navigation prop into the component directly, or don't want to pass it in case of a deeply nested child.
+  // useNavigation() returns the navigation prop of the screen it's inside.
+  const navigation = useNavigation();
+
+  // navigate to MealDetail screen.
+  function selectMealHandler() {
+    navigation.navigate('MealDetail', {
+      mealId: id // pass the mealId to the MealDetail screen.
+    });
+  }
+
   return (
     <View style={styles.mealItem}>
       <Pressable
         android_ripple={{ color: '#ccc' }} // enable a visual touch feedback effect in Android devices.
         style={({ pressed }) => (pressed ? styles.buttonPressed : null)} // enable opacity effect when pressed.
-        onPress={onPress}>
+        onPress={selectMealHandler}>
         <View style={styles.innerContainer}>
           <View>
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{duration}m</Text>
-            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-          </View>
+          <MealDetails duration={duration} complexity={complexity} affordability={affordability} />
         </View>
       </Pressable>
     </View>
@@ -63,17 +74,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     margin: 8
-  },
-
-  details: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8
-  },
-
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12
   }
 });

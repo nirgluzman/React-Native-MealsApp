@@ -9,29 +9,34 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import { MEALS, CATEGORIES } from '../data/dummy-data';
 import MealItem from '../components/MealItem.js';
 
-function MealsOverviewScreen({ route, navigation }) {
+function MealsOverviewScreen({
   // each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
+  route,
+  navigation
+}) {
+  // get the categoryId from the route params; see route prop reference, https://reactnavigation.org/docs/route-prop
   const catId = route.params.categoryId;
-
-  const categoryTitle = CATEGORIES.find(category => category.id === catId).title;
-
-  // useLayoutEffect is a hook which is called BEFORE the component is rendered, i.e. the effect is happening simultaneously when the componet is rendered.
-  useLayoutEffect(() => {
-    // update the screen's options, https://reactnavigation.org/docs/navigation-prop/
-    navigation.setOptions({
-      title: categoryTitle
-    });
-  }, [catId, navigation]);
 
   // filter meals by categoryId.
   const displayedMeals = MEALS.filter(mealItem => {
     return mealItem.categoryIds.indexOf(catId) >= 0; // indexOf() method of Array instances returns the first index at which a given element can be found in the array, or -1 if it is not present.
   });
 
+  // useLayoutEffect is a hook which is called BEFORE the component is rendered, i.e. the effect is happening simultaneously when the componet is rendered.
+  useLayoutEffect(() => {
+    const categoryTitle = CATEGORIES.find(category => category.id === catId).title;
+
+    // update the screen's options, https://reactnavigation.org/docs/navigation-prop/
+    navigation.setOptions({
+      title: categoryTitle
+    });
+  }, [catId, navigation]);
+
   function renderMealItem(itemData) {
-    const item = itemData.item;
+    const { item } = itemData;
 
     const mealItemProps = {
+      id: item.id,
       title: item.title,
       imageUrl: item.imageUrl,
       duration: item.duration,

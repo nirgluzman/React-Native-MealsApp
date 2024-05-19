@@ -8,11 +8,12 @@ import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 
 function renderCategoryItem(navigation, itemData) {
+  // handling the press event of the category grid tile.
   const pressHandler = () => {
     navigation.navigate(
       'MealsOverview', // name of the route to push onto the stack.
       {
-        //  screen params to pass to the destination route using the 'route' prop, https://reactnavigation.org/docs/route-prop
+        // params to pass to the destination route, https://reactnavigation.org/docs/navigation-prop#common-api-reference
         categoryId: itemData.item.id
       }
     );

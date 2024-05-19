@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen.js';
+import MealDetailScreen from './screens/MealDetailScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,7 @@ export default function App() {
 
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='MealsCategories'
+          initialRouteName='MealsCategories' // initial screen to show; if it is not set here, the first screen in the navigator will be shown.
           screenOptions={{
             // options to configure the default style for all screens.
             headerStyle: { backgroundColor: '#351401' },
@@ -47,6 +48,7 @@ export default function App() {
             //   };
             // }}
           />
+          <Stack.Screen name='MealDetail' component={MealDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
