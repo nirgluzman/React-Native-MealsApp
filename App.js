@@ -48,7 +48,16 @@ export default function App() {
             //   };
             // }}
           />
-          <Stack.Screen name='MealDetail' component={MealDetailScreen} />
+          <Stack.Screen
+            name='MealDetail'
+            component={MealDetailScreen}
+            // options={{
+            //   headerRight: () => {
+            //     // function which returns a React Element to display on the right side of the header.
+            //     return <Button title='Tap me!' onPress={ } />;
+            //   }
+            // }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
