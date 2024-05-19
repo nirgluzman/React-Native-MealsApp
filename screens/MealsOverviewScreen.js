@@ -1,15 +1,27 @@
+import { useLayoutEffect } from 'react';
+
 import { StyleSheet, FlatList, View } from 'react-native';
 
 // useRoute is a hook which gives access to route object. It's useful when you cannot pass the route prop into the component directly, or don't want to pass it in case of a deeply nested child.
 // useRoute() returns the route prop of the screen it's inside.
 // import { useRoute } from '@react-navigation/native';
 
-import { MEALS } from '../data/dummy-data';
+import { MEALS, CATEGORIES } from '../data/dummy-data';
 import MealItem from '../components/MealItem.js';
 
-function MealsOverviewScreen({ route }) {
+function MealsOverviewScreen({ route, navigation }) {
   // each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
   const catId = route.params.categoryId;
+
+  const categoryTitle = CATEGORIES.find(category => category.id === catId).title;
+
+  // useLayoutEffect is a hook which is called BEFORE the component is rendered, i.e. the effect is happening simultaneously when the componet is rendered.
+  useLayoutEffect(() => {
+    // update the screen's options, https://reactnavigation.org/docs/navigation-prop/
+    navigation.setOptions({
+      title: categoryTitle
+    });
+  }, [catId, navigation]);
 
   // filter meals by categoryId.
   const displayedMeals = MEALS.filter(mealItem => {

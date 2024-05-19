@@ -18,12 +18,35 @@ export default function App() {
       <StatusBar style='light' />
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='MealsCategories'>
+        <Stack.Navigator
+          initialRouteName='MealsCategories'
+          screenOptions={{
+            // options to configure the default style for all screens.
+            headerStyle: { backgroundColor: '#351401' },
+            headerTintColor: 'white',
+            contentStyle: { backgroundColor: '#3f2f25' }
+          }}>
           {/* each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
           https://reactnavigation.org/docs/route-prop //
           https://reactnavigation.org/docs/navigation-prop */}
-          <Stack.Screen name='MealsCategories' component={CategoriesScreen} />
-          <Stack.Screen name='MealsOverview' component={MealsOverviewScreen} />
+          <Stack.Screen
+            name='MealsCategories'
+            component={CategoriesScreen}
+            options={{
+              // options to configure the screen specific style, https://reactnavigation.org/docs/native-stack-navigator#options
+              title: 'All Categories'
+            }}
+          />
+          <Stack.Screen
+            name='MealsOverview'
+            component={MealsOverviewScreen}
+            // options={({ route, navigation }) => {
+            //   const catId = route.params.categoryId;
+            //   return {
+            //     title: catId
+            //   };
+            // }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
