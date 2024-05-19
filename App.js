@@ -19,6 +19,9 @@ export default function App() {
 
       <NavigationContainer>
         <Stack.Navigator initialRouteName='MealsCategories'>
+          {/* each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
+          https://reactnavigation.org/docs/route-prop //
+          https://reactnavigation.org/docs/navigation-prop */}
           <Stack.Screen name='MealsCategories' component={CategoriesScreen} />
           <Stack.Screen name='MealsOverview' component={MealsOverviewScreen} />
         </Stack.Navigator>
