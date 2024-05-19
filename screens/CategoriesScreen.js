@@ -1,13 +1,21 @@
 import { FlatList } from 'react-native';
 
+// useNavigation is a hook which gives access to navigation object. It's useful when you cannot pass the navigation prop into the component directly, or don't want to pass it in case of a deeply nested child.
+// useNavigation() returns the navigation prop of the screen it's inside.
+// import { useNavigation } from '@react-navigation/native';
+
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 
 function renderCategoryItem(navigation, itemData) {
   const pressHandler = () => {
-    navigation.navigate('MealsOverview', {
-      categoryId: itemData.item.id
-    });
+    navigation.navigate(
+      'MealsOverview', // name of the route to push onto the stack.
+      {
+        //  screen params to pass to the destination route using the 'route' prop, https://reactnavigation.org/docs/route-prop
+        categoryId: itemData.item.id
+      }
+    );
   };
   return (
     <CategoryGridTile
