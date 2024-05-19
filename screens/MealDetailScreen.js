@@ -1,17 +1,32 @@
+import { useLayoutEffect } from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 
 import MealDetails from '../components/MealDetails.js';
 import Subtitle from '../components/MealDetail/Subtitle.js';
 import List from '../components/MealDetail/List.js';
+import IconButton from '../components/IconButton.js';
 
 import { MEALS } from '../data/dummy-data';
 
-function MealDetailScreen({ route }) {
+function MealDetailScreen({ route, navigation }) {
   // get the mealId from the route params; see route prop reference, https://reactnavigation.org/docs/route-prop
   const { mealId } = route.params;
 
   // find the meal with the given id.
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
+
+  function headerButtonPressHandler() {
+    console.log('Pressed!');
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // function which returns a React Element to display on the right side of the header.
+      headerRight: () => {
+        return <IconButton icon='star' color='white' onPress={headerButtonPressHandler} />;
+      }
+    });
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -41,7 +56,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     marginBottom: 32
   },
-  
+
   // we must set the image size in order to display images fetched from url.
   image: {
     width: '100%',
