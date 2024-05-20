@@ -1,8 +1,13 @@
+import 'react-native-gesture-handler';
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 
 // Routing and navigation for Expo and React Native apps, https://reactnavigation.org/docs/getting-started#wrapping-your-app-in-navigationcontainer
 import { NavigationContainer } from '@react-navigation/native';
+
+// import Drawer Navigator, https://reactnavigation.org/docs/drawer-navigator/
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Native Stack Navigator, https://reactnavigation.org/docs/native-stack-navigator
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,8 +15,29 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen.js';
 import MealDetailScreen from './screens/MealDetailScreen.js';
+import FavoritesScreen from './screens/FavoritesScreen.js';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+// Drawer Navigator
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#351401' },
+        headerTintColor: 'white',
+        sceneContainerStyle: { backgroundColor: '#3f2f25' } // contentStyle in Stack.Navigator
+      }}>
+      <Drawer.Screen
+        name='Categories'
+        component={CategoriesScreen}
+        options={{ title: 'All Categories' }}
+      />
+      <Drawer.Screen name='Favorites' component={FavoritesScreen} />
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -31,11 +57,12 @@ export default function App() {
           https://reactnavigation.org/docs/route-prop //
           https://reactnavigation.org/docs/navigation-prop */}
           <Stack.Screen
-            name='MealsCategories'
-            component={CategoriesScreen}
+            name='Drawer'
+            component={DrawerNavigator}
             options={{
               // options to configure the screen specific style, https://reactnavigation.org/docs/native-stack-navigator#options
-              title: 'All Categories'
+              // title: 'All Categories',
+              headerShown: false // remove header from the screen, as we use the Drawer Navigator.
             }}
           />
           <Stack.Screen
@@ -51,12 +78,13 @@ export default function App() {
           <Stack.Screen
             name='MealDetail'
             component={MealDetailScreen}
-            // options={{
-            //   headerRight: () => {
-            //     // function which returns a React Element to display on the right side of the header.
-            //     return <Button title='Tap me!' onPress={ } />;
-            //   }
-            // }}
+            options={{
+              title: 'About the Meal'
+              //   headerRight: () => {
+              //     // function which returns a React Element to display on the right side of the header.
+              //     return <Button title='Tap me!' onPress={ } />;
+              //   }
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
