@@ -20,6 +20,9 @@ import MealsOverviewScreen from './screens/MealsOverviewScreen.js';
 import MealDetailScreen from './screens/MealDetailScreen.js';
 import FavoritesScreen from './screens/FavoritesScreen.js';
 
+// import context provider for favorites
+import FavoritesContextProvider from './store/context/favorites-context.js';
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -60,50 +63,52 @@ export default function App() {
     <>
       <StatusBar style='light' />
 
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='MealsCategories' // initial screen to show; if it is not set here, the first screen in the navigator will be shown.
-          screenOptions={{
-            // options to configure the default style for all screens.
-            headerStyle: { backgroundColor: '#351401' },
-            headerTintColor: 'white',
-            contentStyle: { backgroundColor: '#3f2f25' }
-          }}>
-          {/* each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName='MealsCategories' // initial screen to show; if it is not set here, the first screen in the navigator will be shown.
+            screenOptions={{
+              // options to configure the default style for all screens.
+              headerStyle: { backgroundColor: '#351401' },
+              headerTintColor: 'white',
+              contentStyle: { backgroundColor: '#3f2f25' }
+            }}>
+            {/* each screen component (defined by Stack.Screen) is provided with 'route' and 'navigation' prop automatically.
           https://reactnavigation.org/docs/route-prop //
           https://reactnavigation.org/docs/navigation-prop */}
-          <Stack.Screen
-            name='Drawer'
-            component={DrawerNavigator}
-            options={{
-              // options to configure the screen specific style, https://reactnavigation.org/docs/native-stack-navigator#options
-              // title: 'All Categories',
-              headerShown: false // remove header from the screen, as we use the Drawer Navigator.
-            }}
-          />
-          <Stack.Screen
-            name='MealsOverview'
-            component={MealsOverviewScreen}
-            // options={({ route, navigation }) => {
-            //   const catId = route.params.categoryId;
-            //   return {
-            //     title: catId
-            //   };
-            // }}
-          />
-          <Stack.Screen
-            name='MealDetail'
-            component={MealDetailScreen}
-            options={{
-              title: 'About the Meal'
-              //   headerRight: () => {
-              //     // function which returns a React Element to display on the right side of the header.
-              //     return <Button title='Tap me!' onPress={ } />;
-              //   }
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name='Drawer'
+              component={DrawerNavigator}
+              options={{
+                // options to configure the screen specific style, https://reactnavigation.org/docs/native-stack-navigator#options
+                // title: 'All Categories',
+                headerShown: false // remove header from the screen, as we use the Drawer Navigator.
+              }}
+            />
+            <Stack.Screen
+              name='MealsOverview'
+              component={MealsOverviewScreen}
+              // options={({ route, navigation }) => {
+              //   const catId = route.params.categoryId;
+              //   return {
+              //     title: catId
+              //   };
+              // }}
+            />
+            <Stack.Screen
+              name='MealDetail'
+              component={MealDetailScreen}
+              options={{
+                title: 'About the Meal'
+                //   headerRight: () => {
+                //     // function which returns a React Element to display on the right side of the header.
+                //     return <Button title='Tap me!' onPress={ } />;
+                //   }
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
