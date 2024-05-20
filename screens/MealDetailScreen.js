@@ -1,12 +1,15 @@
 import { useLayoutEffect, useContext } from 'react';
 import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import MealDetails from '../components/MealDetails.js';
 import Subtitle from '../components/MealDetail/Subtitle.js';
 import List from '../components/MealDetail/List.js';
 import IconButton from '../components/IconButton.js';
 
-import { FavoritesContext } from '../store/context/favorites-context.js';
+// import { FavoritesContext } from '../store/context/favorites-context.js';
+import { addFavorite, removeFavorite } from '../store/redux/favorites.js';
 
 import { MEALS } from '../data/dummy-data';
 
@@ -17,18 +20,29 @@ function MealDetailScreen({ route, navigation }) {
   // find the meal with the given id.
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
+  // *** useContext implementation ***
   // import context provider for favorites
-  const favMealsCtx = useContext(FavoritesContext);
+  // const favMealsCtx = useContext(FavoritesContext);
 
   // check if the meal is a favorite
-  const mealIsFavorite = favMealsCtx.ids.includes(route.params.mealId);
+  // const mealIsFavorite = favMealsCtx.ids.includes(mealId);
+
+  // *** Redux Toolkit implementation ***
+  // extract favorite meals ids from Redux store
+  const favMealIds = useSelector(state => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
+
+  // check if the meal is a favorite
+  const mealIsFavorite = favMealIds.includes(mealId);
 
   function changeFavoriteStatusHandler() {
     // toggle favorite status
     if (mealIsFavorite) {
-      favMealsCtx.removeFavorite(mealId);
+      // favMealsCtx.removeFavorite(mealId);
+      dispatch(removeFavorite({ id: mealId }));
     } else {
-      favMealsCtx.addFavorite(mealId);
+      // favMealsCtx.addFavorite(mealId);
+      dispatch(addFavorite({ id: mealId }));
     }
   }
 

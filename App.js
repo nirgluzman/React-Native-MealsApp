@@ -21,7 +21,11 @@ import MealDetailScreen from './screens/MealDetailScreen.js';
 import FavoritesScreen from './screens/FavoritesScreen.js';
 
 // import context provider for favorites
-import FavoritesContextProvider from './store/context/favorites-context.js';
+// import FavoritesContextProvider from './store/context/favorites-context.js';
+
+// Redux store
+import { Provider } from 'react-redux';
+import { store } from './store/redux/store';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -63,7 +67,9 @@ export default function App() {
     <>
       <StatusBar style='light' />
 
-      <FavoritesContextProvider>
+      {/* Redux */}
+      <Provider store={store}>
+        {/* <FavoritesContextProvider> */}
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName='MealsCategories' // initial screen to show; if it is not set here, the first screen in the navigator will be shown.
@@ -108,7 +114,8 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      </FavoritesContextProvider>
+        {/* </FavoritesContextProvider> */}
+      </Provider>
     </>
   );
 }
