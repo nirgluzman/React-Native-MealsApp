@@ -14,6 +14,12 @@ https://reactnative.dev/docs/environment-setup, https://docs.expo.dev/
 npx create-expo-app <project name> --template blank
 ```
 
+### Expo Application Services (EAS)
+
+https://expo.dev/eas
+
+- EAS is a cloud build service used to build and publish React Native apps.
+
 ### React Navigation
 
 https://reactnavigation.org/docs/getting-started
