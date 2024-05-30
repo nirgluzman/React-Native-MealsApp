@@ -20,6 +20,13 @@ https://expo.dev/eas
 
 - EAS is a cloud build service used to build and publish React Native apps.
 
+- Configure a development build in cloud,
+  https://docs.expo.dev/tutorial/eas/configure-development-build/
+
+- Configure status bar, splash screen and app icon, https://docs.expo.dev/tutorial/configuration/
+
+- Environment variables and secrets in EAS Build, https://docs.expo.dev/build-reference/variables/
+
 ### React Navigation
 
 https://reactnavigation.org/docs/getting-started
